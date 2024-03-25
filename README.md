@@ -13,9 +13,5 @@ Deploy Huly server with CI/CD on Elestio
 You can open Huly UI here:
 
     URL: https://[CI_CD_DOMAIN]
-
-You can open PHPMyAdmin here:
-
-    URL: https://[CI_CD_DOMAIN]:26452
-    login: root
-    password: [ADMIN_PASSWORD]
+    login: "[ADMIN_EMAIL]"
+    password: "[ADMIN_PASSWORD]"
