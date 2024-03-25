@@ -39,6 +39,14 @@ ports:
     public: true
     path: "/"
     isAuth: false
+  - protocol: "HTTPS"
+    targetProtocol: "HTTP"
+    listeningPort: "2702"
+    targetPort: "9528"
+    targetIP: "172.17.0.1"
+    public: true
+    path: "/"
+    isAuth: false
 environments:
   - key: "SOFTWARE_VERSION_TAG"
     value: "latest"
@@ -48,6 +56,8 @@ environments:
     value: "random_password"
   - key: "DOMAIN"
     value: "[CI_CD_DOMAIN]"
+  - key: "MINIO_ROOT_PASSWORD"
+    value: "random_password"
 
 config:
   runTime: "dockerCompose"
