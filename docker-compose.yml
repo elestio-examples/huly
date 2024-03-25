@@ -40,11 +40,11 @@ services:
       - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
       - http.cors.enabled=true
       - http.cors.allow-origin=https://${DOMAIN}:2702
-    elasticvue:
-      image: cars10/elasticvue
-      restart: always
-      ports:
-        - 172.17.0.1:9528:8080
+  elasticvue:
+    image: cars10/elasticvue
+    restart: always
+    ports:
+      - 172.17.0.1:9528:8080
 
   account:
     image: hardcoreeng/account
