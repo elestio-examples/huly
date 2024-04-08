@@ -81,6 +81,7 @@ services:
     environment:
       - SERVER_PORT=8080
       - SERVER_SECRET=secret
+      - MONGO_URL=mongodb://mongodb:27017
       - ACCOUNTS_URL=https://${DOMAIN}:54138
       - REKONI_URL=http://${DOMAIN}:36886
       - CALENDAR_URL=http://localhost:8095
@@ -165,6 +166,7 @@ services:
       - SERVER_PROVIDER=ws
       - ACCOUNTS_URL=http://account:3000
       - LAST_NAME_FIRST=true
+      - ELASTIC_INDEX_NAME=local_storage_index
   rekoni:
     image: hardcoreeng/rekoni-service
     restart: always
