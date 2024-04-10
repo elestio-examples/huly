@@ -68,7 +68,7 @@ services:
       - MODEL_ENABLED=*
       - ACCOUNTS_URL=https://${DOMAIN}:54138
   front:
-    image: hardcoreeng/front
+    image: hardcoreeng/front:${SOFTWARE_VERSION_TAG}
     restart: always
     links:
       - mongodb
