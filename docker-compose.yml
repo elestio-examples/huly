@@ -40,11 +40,6 @@ services:
       - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
       - http.cors.enabled=true
       - http.cors.allow-origin=https://${DOMAIN}:2702
-  elasticvue:
-    image: cars10/elasticvue
-    restart: always
-    ports:
-      - 172.17.0.1:9528:8080
 
   account:
     image: hardcoreeng/account
@@ -167,6 +162,7 @@ services:
       - ACCOUNTS_URL=http://account:3000
       - LAST_NAME_FIRST=true
       - ELASTIC_INDEX_NAME=local_storage_index
+      - UPLOAD_URL=https://${DOMAIN}/files
   rekoni:
     image: hardcoreeng/rekoni-service
     restart: always
