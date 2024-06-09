@@ -42,7 +42,7 @@ services:
       - http.cors.allow-origin=https://${DOMAIN}:2702
 
   account:
-    image: hardcoreeng/account
+    image: hardcoreeng/account:${SOFTWARE_VERSION_TAG}
     restart: always
     links:
       - mongodb
@@ -94,7 +94,7 @@ services:
       - DEFAULT_LANGUAGE=ru
       - LAST_NAME_FIRST=true
   collaborator:
-    image: hardcoreeng/collaborator
+    image: hardcoreeng/collaborator:${SOFTWARE_VERSION_TAG}
     restart: always
     links:
       - mongodb
@@ -133,7 +133,7 @@ services:
   #     - MINIO_ACCESS_KEY=root
   #     - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
   transactor:
-    image: hardcoreeng/transactor
+    image: hardcoreeng/transactor:${SOFTWARE_VERSION_TAG}
     restart: always
     links:
       - mongodb
@@ -164,7 +164,7 @@ services:
       - ELASTIC_INDEX_NAME=local_storage_index
       - UPLOAD_URL=https://${DOMAIN}/files
   rekoni:
-    image: hardcoreeng/rekoni-service
+    image: hardcoreeng/rekoni-service:${SOFTWARE_VERSION_TAG}
     restart: always
     ports:
       - 172.17.0.1:55195:4004 #36886
