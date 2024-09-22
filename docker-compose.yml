@@ -53,11 +53,12 @@ services:
       - SERVER_PORT=3000
       - SERVER_SECRET=secret
       - MONGO_URL=mongodb://mongodb:27017
-      - TRANSACTOR_URL=ws://transactor:3333
+      - TRANSACTOR_URL=ws://transactor:3333;wss://${DOMAIN}:34646
       - ENDPOINT_URL=wss://${DOMAIN}:34646
       - MINIO_ENDPOINT=minio
       - MINIO_ACCESS_KEY=root
       - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
+      - STORAGE_CONFIG=minio|minio?accessKey=root&secretKey=${MINIO_ROOT_PASSWORD}
       - FRONT_URL=http://front:8080
       - INIT_WORKSPACE=demo-tracker
       - MODEL_ENABLED=*
@@ -83,7 +84,7 @@ services:
       - GMAIL_URL=http://localhost:8088
       - TELEGRAM_URL=http://localhost:8086
       - UPLOAD_URL=/files
-      - TRANSACTOR_URL=wss://${DOMAIN}:34646
+      - TRANSACTOR_URL=ws://transactor:3333;wss://${DOMAIN}:34646
       - ELASTIC_URL=http://elastic:9200
       - COLLABORATOR_URL=wss://${DOMAIN}:24154
       - COLLABORATOR_API_URL=https://${DOMAIN}:24154
@@ -91,8 +92,23 @@ services:
       - MINIO_ACCESS_KEY=root
       - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
       - TITLE=DevPlatform
-      - DEFAULT_LANGUAGE=ru
+      - DEFAULT_LANGUAGE=en
       - LAST_NAME_FIRST=true
+      - STORAGE_CONFIG=minio|minio?accessKey=root&secretKey=${MINIO_ROOT_PASSWORD}
+  workspace:
+    image: hardcoreeng/workspace:${SOFTWARE_VERSION_TAG}
+    links:
+      - mongodb
+      - minio
+    environment:
+      - SERVER_SECRET=secret
+      - MONGO_URL=mongodb://mongodb:27017
+      - TRANSACTOR_URL=ws://transactor:3333;wss://${DOMAIN}:34646
+      - STORAGE_CONFIG=minio|minio?accessKey=root&secretKey=${MINIO_ROOT_PASSWORD}
+      - MODEL_ENABLED=*
+      - ACCOUNTS_URL=https://${DOMAIN}:54138
+      - NOTIFY_INBOX_ONLY=true
+    restart: unless-stopped
   collaborator:
     image: hardcoreeng/collaborator:${SOFTWARE_VERSION_TAG}
     restart: always
@@ -106,12 +122,13 @@ services:
       - COLLABORATOR_PORT=3078
       - SECRET=secret
       - ACCOUNTS_URL=http://account:3000
-      - TRANSACTOR_URL=wss://${DOMAIN}:34646
+      - TRANSACTOR_URL=ws://transactor:3333;wss://${DOMAIN}:34646
       - UPLOAD_URL=/files
       - MONGO_URL=mongodb://mongodb:27017
       - MINIO_ENDPOINT=minio
       - MINIO_ACCESS_KEY=root
       - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
+      - STORAGE_CONFIG=minio|minio?accessKey=root&secretKey=${MINIO_ROOT_PASSWORD}
   # tracker-front:
   #   image: hardcoreeng/tracker-front
   #   links:
@@ -163,6 +180,7 @@ services:
       - LAST_NAME_FIRST=true
       - ELASTIC_INDEX_NAME=local_storage_index
       - UPLOAD_URL=https://${DOMAIN}/files
+      - STORAGE_CONFIG=minio|minio?accessKey=root&secretKey=${MINIO_ROOT_PASSWORD}
   rekoni:
     image: hardcoreeng/rekoni-service:${SOFTWARE_VERSION_TAG}
     restart: always
@@ -172,6 +190,8 @@ services:
       resources:
         limits:
           memory: 500M
+    environment:
+      - SECRET=secret
   # etcd:
   #   container_name: milvus-etcd
   #   image: quay.io/coreos/etcd:v3.5.0
