@@ -5,9 +5,9 @@ set -o allexport; source .env; set +o allexport;
 echo "Waiting for software to be ready ..."
 sleep 30s;
 
-target=$(docker-compose port account 3000)
+target=$(docker-compose port nginx 80)
 
-curl http://${target}/ \
+curl http://${target}/_accounts \
   -H 'accept: */*' \
   -H 'accept-language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,he;q=0.6,zh-CN;q=0.5,zh;q=0.4,ja;q=0.3' \
   -H 'cache-control: no-cache' \

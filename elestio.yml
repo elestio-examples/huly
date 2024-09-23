@@ -7,46 +7,6 @@ ports:
     public: true
     path: "/"
     isAuth: false
-  - protocol: "HTTPS"
-    targetProtocol: "HTTP"
-    listeningPort: "54138"
-    targetPort: "40082"
-    targetIP: "172.17.0.1"
-    public: true
-    path: "/"
-    isAuth: false
-  - protocol: "HTTPS"
-    targetProtocol: "HTTP"
-    listeningPort: "24154"
-    targetPort: "3078"
-    targetIP: "172.17.0.1"
-    public: true
-    path: "/"
-    isAuth: false
-  - protocol: "HTTPS"
-    targetProtocol: "HTTP"
-    listeningPort: "34646"
-    targetPort: "61030"
-    targetIP: "172.17.0.1"
-    public: true
-    path: "/"
-    isAuth: false
-  - protocol: "HTTPS"
-    targetProtocol: "HTTP"
-    listeningPort: "36886"
-    targetPort: "55195"
-    targetIP: "172.17.0.1"
-    public: true
-    path: "/"
-    isAuth: false
-  - protocol: "HTTPS"
-    targetProtocol: "HTTP"
-    listeningPort: "2702"
-    targetPort: "9528"
-    targetIP: "172.17.0.1"
-    public: true
-    path: "/"
-    isAuth: false
 environments:
   - key: "SOFTWARE_VERSION_TAG"
     value: "v0.6.295"
@@ -57,6 +17,8 @@ environments:
   - key: "DOMAIN"
     value: "[CI_CD_DOMAIN]"
   - key: "MINIO_ROOT_PASSWORD"
+    value: "random_password"
+  - key: "HULY_SECRET"
     value: "random_password"
 
 config:
